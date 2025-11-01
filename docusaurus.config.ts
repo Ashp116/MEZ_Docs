@@ -45,23 +45,9 @@ const config: Config = {
           // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-          // Enable versioning
+          // Disable versioning for now - use current docs as 2025
           includeCurrentVersion: true,
-          lastVersion: '2025',
-          versions: {
-            current: {
-              label: '2026 Season (Development)',
-              path: 'next',
-            },
-            '2025': {
-              label: '2025 Season',
-              path: '/',
-            },
-            '2024': {
-              label: '2024 Season',
-              path: '2024',
-            },
-          },
+          onlyIncludeVersions: ['current'],
         },
         blog: {
           showReadingTime: true,
@@ -119,14 +105,9 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: 'Tutorial',
+          label: 'Docs',
         },
         {to: '/blog', label: 'Blog', position: 'left'},
-        {
-          type: 'docsVersionDropdown',
-          position: 'right',
-          dropdownActiveClassDisabled: true,
-        },
         {
           href: 'https://github.com/facebook/docusaurus',
           label: 'GitHub',
