@@ -1,0 +1,117 @@
+---
+sidebar_position: 1
+---
+
+import IconExternalLink from '@theme/Icon/ExternalLink';
+
+# Installation
+Before we are able to program our robot, we need to install a software called 
+[FRC Game Tools<IconExternalLink />](https://www.ni.com/en/support/downloads/drivers/download.frc-game-tools.html#553883)
+
+:::info Package info
+The FRC Game Tools installs
+ [LabVIEW](https://www.ni.com/en/shop/labview.html?srsltid=AfmBOoqha-9f1cQfRafKomvFDdXMTPOGMgmHTd_6Indjz1E1u7j8mn2X), 
+ [FRC Drive Station](https://docs.wpilib.org/en/stable/docs/software/driverstation/driver-station.html), 
+ and [FRC roboRIO Image Tool](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-3/imaging-your-roborio.html#imaging-your-roborio-1)
+:::
+
+:::note System requirements
+- **Operating System:** Windows 10 or Windows 11  
+- **Architecture:** x86 (64-bit). *ARM-based devices are not supported*
+:::
+
+---
+
+## Step 0: Precheck
+Uninstall previous version of the NI Software and NI Packager
+
+### Windows 11
+
+Navigate to your Settings app:
+
+- **Option 1:** Start &rarr; 'Settings' 
+- **Option 2:** Start &rarr; Search &rarr; Type "Settings" &rarr; Click 'Settings'
+
+Follow the video below:
+<video 
+  width="800" 
+  height="auto" 
+  controls 
+  style={{maxWidth: '100%', height: 'auto'}}
+  src={require('./img/installation/NIPrecheck.mp4').default}
+>
+  Your browser does not support the video tag.
+</video>
+
+### Windows 10: SOON
+
+## Step 1: Download FRC Game Tools
+
+Visit [**FRC Game tools by NI<IconExternalLink />**](https://www.ni.com/en/support/downloads/drivers/download.frc-game-tools.html#479842)
+
+### Tools Version
+Select the latest version available
+<img src={require('./img/installation/GameToolVersion.png').default} alt="GameToolsVersion" style={{width: '500px', maxWidth: '100%'}} />
+
+
+### Download
+#### Account
+
+If you see a button saying "Log in to Download", click it. If not follow from [here](#installer-type)
+<img src={require('./img/installation/GameToolsLogInToDownload.png').default} alt="GameToolsVersion" style={{width: '300px', maxWidth: '100%'}} />
+
+Log in to our account or Create and account
+<img src={require('./img/installation/NIAccountCreation.png').default} alt="NIAccountCreation" style={{width: '300px', maxWidth: '100%'}} />
+
+Once you have logged in or created an account. Navigate back to 
+[**FRC Game tools by NI<IconExternalLink />**](https://www.ni.com/en/support/downloads/drivers/download.frc-game-tools.html#479842)
+
+
+#### Installer Type
+
+Click on the "Download" button. This is an online installer, and you will need an internet/wifi connection throughout the installation process. 
+
+:::note Alt Installation
+Click 'Install Offline' to download the offline intaller. For this installation method you do not need wifi connection throught out the installation process. 
+:::
+
+For the purpose of this tutorial we will use the **<u>Online</u>** installation 
+<img src={require('./img/installation/GameToolsDownload.png').default} alt="GameToolsDownload" style={{width: '400px', maxWidth: '100%'}} />
+
+### Installation
+Navigate to the **NI Installer** in your file explorer, and <u>**double click to start the installation**</u>
+
+<img src={require('./img/installation/NIInstallerExtraction.png').default} alt="NIInstaller" style={{width: '200px', maxWidth: '100%'}} />
+
+## Licence Agreement
+Read the license agreement of NI and .NET 4.8.
+
+Then click **"I accept the above 2 license agreements"**
+
+<img src={require('./img/installation/NILicenseAgr.png').default} alt="NILicenseAgr" style={{width: '600px', maxWidth: '100%'}} />
+
+## NI Review
+Review the packages that are being installed, then click **Next**
+
+<img src={require('./img/installation/NIInstallerReview.png').default} alt="NIInstallerReview" style={{width: '600px', maxWidth: '100%'}} />
+
+Let the NI Installer finish installing
+
+<img src={require('./img/installation/NIInstallationFinish.png').default} alt="NIInstallationFinish" style={{width: '600px', maxWidth: '100%'}} />
+
+## NI Account
+If you are prompted with a login page, login to your NI account if you already have one. If you do not, please clicked the **Create Account** and follow the instructions in account creation
+
+<img src={require('./img/installation/NIAccountCreation.png').default} alt="NIAccountCreation" style={{width: '600px', maxWidth: '100%'}} />
+
+**NOTE: If you're prompted to reboot your computer, please do so!**
+
+
+## Downloaded Applications
+Once you have finished rebooting your computer, you should have these applications installed on your computer
+
+1. **FRC Drive Station**   
+<img src={require('./img/installation/FRCDriveStationApp.png').default} alt="FRCDriveStation" style={{width: '400px', maxWidth: '100%'}} />
+
+2. **roboRIO Imaging Tool**  
+<img src={require('./img/installation/FRCImagingTool.png').default} alt="FRCImagingTool" style={{width: '400px', maxWidth: '100%'}} />
