@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkmez_docs=globalThis.webpackChunkmez_docs||[]).push([[1903],{1912:s=>{s.exports=JSON.parse('{"blogBasePath":"/MEZ_Docs/blog","blogTitle":"Blog","authorsListPath":"/MEZ_Docs/blog/authors"}')}}]);
