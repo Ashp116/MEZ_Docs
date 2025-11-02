@@ -5,9 +5,7 @@ sidebar_position: 4
 # Imaging RoboRio 1.0
 
 
-This page will teach you how to **Program/Config your radio**
-
-Learn more about [Radio](/docs/QA/roborio1)
+This page will teach you how to **Image your RoboRio 1.0**
 
 :::note
 
