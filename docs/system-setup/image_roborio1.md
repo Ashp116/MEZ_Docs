@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 # Imaging RoboRio 1.0

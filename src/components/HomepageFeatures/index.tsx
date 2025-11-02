@@ -11,32 +11,32 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
+    title: 'Competition Ready',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Get your FRC team competition-ready with comprehensive setup guides 
+        covering everything from robot configuration to driver station setup.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Step-by-Step Guides',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Follow our detailed, tested procedures to configure your robot systems.
+        Each guide includes screenshots and troubleshooting tips from experienced teams.
       </>
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'Michigan Engineering Zone',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Created by the University of Michigan's FRC community to help teams 
+        succeed. Backed by years of competition experience and engineering expertise.
       </>
     ),
   },

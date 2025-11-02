@@ -21,7 +21,8 @@ function HomepageHeader() {
           <Link
             className="button button--secondary button--lg"
             to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
+            <img src="/img/FIRSTLogo.svg" alt="FIRST Logo" style={{height: '20px', marginLeft: '8px', marginRight: '8px'}} /> 
+            FRC Starter Guide 
           </Link>
         </div>
       </div>
@@ -33,7 +34,7 @@ export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
+      title={`${siteConfig.title}`}
       description="Description will go into a meta tag in <head />">
       <HomepageHeader />
       <main>
