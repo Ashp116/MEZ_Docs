@@ -21,7 +21,7 @@ function HomepageHeader() {
           <Link
             className="button button--secondary button--lg"
             to="/docs/intro">
-            <img src="/img/FIRSTLogo.svg" alt="FIRST Logo" style={{height: '20px', marginLeft: '8px', marginRight: '8px'}} /> 
+            <img src={require('@site/static/img/FIRSTLogo.svg').default} alt="FIRST Logo" style={{height: '20px', marginLeft: '8px', marginRight: '8px'}} /> 
             FRC Starter Guide 
           </Link>
         </div>
