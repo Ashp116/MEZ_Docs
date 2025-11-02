@@ -8,6 +8,8 @@ import Heading from '@theme/Heading';
 
 import styles from './index.module.css';
 
+const FIRSTLogo = require('@site/static/img/FIRSTLogo.svg').default;
+
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
@@ -21,7 +23,7 @@ function HomepageHeader() {
           <Link
             className="button button--secondary button--lg"
             to="/docs/intro">
-            <img src={require('@site/static/img/FIRSTLogo.svg').default} alt="FIRST Logo" style={{height: '20px', marginLeft: '8px', marginRight: '8px'}} /> 
+            <FIRSTLogo style={{height: '20px', width: 'auto', marginRight: '8px'}} /> 
             FRC Starter Guide 
           </Link>
         </div>
