@@ -1,0 +1,333 @@
+---
+slug: mez-2025-code-week-1
+title: MEZ Instructional Code Week 1
+authors: [ashp116, noahtonn]
+tags: [tutorial, frc, java, programming]
+---
+
+# MEZ Instructional Code Week 1
+
+We have provided a prewritten, barebones repository with code for the typical MaxSwerve drive base and a simple flywheel with a distance sensor. This document will contain a quick overview of what the code is doing, then an exercise to see how changing the code affects the robot's real-world performance.
+
+{/* truncate */}
+
+## Project Structure
+
+This is a WPILib-based FRC robot project using Java for the 2024/2025 season. The robot is designed for coral manipulation (intake and shooting) with a sophisticated swerve drive system.
+
+```
+src/main/java/frc/robot/
+├── Main.java
+├── Robot.java
+├── RobotContainer.java
+├── Constants.java
+├── subsystems/
+│   ├── DriveTrainSubsystem.java
+│   └── IndexSubsystem.java
+└── commands/
+    ├── DriveTrainCommand.java
+    ├── IntakeCommand.java
+    └── ShootCommand.java
+```
+
+---
+
+## Subsystems
+
+Subsystems contain the interface for directly interacting with motors. They have "ownership" of the motors and the methods with which to move them.
+
+### IndexSubsystem
+
+IndexSubsystem owns the two index motors and the CANRange (distance sensor), declared in lines 11-13. IndexSubsystem provides methods to run the motors at intake and shoot speeds, as well as to stop the motors, all stated in lines 19-31.
+
+```java title="src\main\java\frc\robot\Subsystem\IndexSubsystem"
+public class IndexSubsystem extends SubsystemBase {
+    // Hardware declarations (lines 11-13)
+    private final CANSparkMax intakeMotor1;
+    private final CANSparkMax intakeMotor2;
+    private final DigitalInput coralSensor;
+    
+    // Motor control methods (lines 19-31)
+    public void runIntake() {
+        intakeMotor1.set(IntakeConstants.INTAKE_SPEED);
+        intakeMotor2.set(IntakeConstants.INTAKE_SPEED);
+    }
+    
+    public void runShoot() {
+        intakeMotor1.set(IntakeConstants.SHOOT_SPEED);
+        intakeMotor2.set(IntakeConstants.SHOOT_SPEED);
+    }
+    
+    public void stop() {
+        intakeMotor1.stopMotor();
+        intakeMotor2.stopMotor();
+    }
+    
+    public boolean hasGamePiece() {
+        return !coralSensor.get();
+    }
+}
+```
+
+### DriveTrainSubsystem
+
+DriveSubsystem is responsible for the eight drivetrain motors, four drive and four turn. We will not go into details on this subsystem, but understand that it provides the interface and mathematics behind the swerve drive.
+
+The subsystem includes:
+- 4-module swerve drive using REV MAXSwerve modules
+- NavX gyroscope integration for field-relative driving
+- Odometry and pose estimation for autonomous navigation
+- Advanced features like wheel locking (X-formation) and speed limiting
+
+---
+
+## Commands
+
+Commands allow users or predefined scripts to call their subsystems' methods. They often reserve a subsystem, meaning only they can use it, then use a user's inputs or a predefined, timed script to call upon the subsystem, eventually affecting the robot.
+
+Commands run within an execution loop. When a command is first scheduled, its `initialize` method executes once. During each cycle of the loop, the `execute` method runs repeatedly. The command continues running until it is either interrupted externally (for example, when a button is released) or its `isFinished` method returns true, at which point the `end` method is called and the loop stops executing the command.
+
+### Command Lifecycle
+
+1. **initialize()** - Called once when the command starts
+2. **execute()** - Called repeatedly while the command is running
+3. **isFinished()** - Returns true when the command should end
+4. **end()** - Called once when the command finishes
+
+### IntakeCommand
+
+IntakeCommand requires IndexSubsystem, meaning that while it is running, no other command may operate on IndexSubsystem (lines 15-18). While it is running, it tells IndexSubsystem to run the index motors at intake speed (lines 23-26). IntakeCommand ends either when it stops being scheduled, because the user input stops, or because there is a game piece present in the intake as defined in the isFinished logic (lines 33-36). When IntakeCommand finishes, it calls IndexSubsystem to stop the motors' movement (lines 28-31).
+
+```java title="src\main\java\frc\robot\Commands\IntakeCommand.java"
+public class IntakeCommand extends CommandBase {
+    private final IndexSubsystem indexSubsystem;
+    
+    public IntakeCommand(IndexSubsystem indexSubsystem) {
+        this.indexSubsystem = indexSubsystem;
+        addRequirements(indexSubsystem); // Lines 15-18: Reserve subsystem
+    }
+    
+    @Override
+    public void initialize() {
+        // Lines 23-26: Start intake motors
+        indexSubsystem.runIntake();
+    }
+    
+    @Override
+    public boolean isFinished() {
+        // Lines 33-36: End when game piece detected
+        return indexSubsystem.hasGamePiece();
+    }
+    
+    @Override
+    public void end(boolean interrupted) {
+        // Lines 28-31: Stop motors when finished
+        indexSubsystem.stop();
+    }
+}
+```
+
+### ShootCommand
+
+ShootCommand requires IndexSubsystem, meaning that while it is running, no other command may operate on IndexSubsystem (lines 14-17). While it is running, it tells IndexSubsystem to run the index motors at shoot speed (lines 22-25). ShootCommand ends when user input stops. When ShootCommand finishes, it calls IndexSubsystem to stop the motors' movement (lines 27-30).
+
+```java title="src\main\java\frc\robot\Commands\ShootCommand.java"
+public class ShootCommand extends CommandBase {
+    private final IndexSubsystem indexSubsystem;
+    
+    public ShootCommand(IndexSubsystem indexSubsystem) {
+        this.indexSubsystem = indexSubsystem;
+        addRequirements(indexSubsystem); // Lines 14-17: Reserve subsystem
+    }
+    
+    @Override
+    public void initialize() {
+        // Lines 22-25: Start shoot motors
+        indexSubsystem.runShoot();
+    }
+    
+    @Override
+    public void end(boolean interrupted) {
+        // Lines 27-30: Stop motors when finished
+        indexSubsystem.stop();
+    }
+    
+    // Command runs until button is released (no isFinished override)
+}
+```
+
+### DriveTrainCommand
+
+DriveTrainCommand contains the execute loop for driving and several additional methods for input smoothing. We will not be going into detail on this.
+
+The command handles:
+- Field-relative driving with alliance color compensation
+- Advanced deadband system with static friction compensation
+- Power scaling (slow mode) via right trigger
+- Separate handling for linear and rotational movements
+
+---
+
+## Other Files
+
+Files like Robot, RobotContainer, Constants, and other Util files may be present. Our format includes just the first three and a Main.
+
+### Main
+
+Main.java is used simply as a build target for Java. It does nothing but call the RobotBase static class and start an instance of Robot. Do not worry about the details of this file.
+
+```java title="src\main\java\frc\robot\Main.java" showLineNumbers=9
+public final class Main {
+    private Main() {}
+
+    public static void main(String... args) {
+        RobotBase.startRobot(Robot::new);
+    }
+}
+```
+
+### Robot
+
+Robot.java owns the RobotContainer class. It also handles scheduling by OP mode, or rather, commands that should be run continuously throughout the teleoperated, autonomous, test, or all OP modes.
+
+```java title="src\main\java\frc\robot\Robot.java" showLineNumbers=11
+public class Robot extends TimedRobot {
+    private RobotContainer robotContainer;
+    
+    @Override
+    public void robotInit() {
+        robotContainer = new RobotContainer();
+    }
+    
+    @Override
+    public void teleopPeriodic() {
+        CommandScheduler.getInstance().run();
+    }
+    
+    // Additional OP mode methods...
+}
+```
+
+### RobotContainer
+
+RobotContainer.java owns all controllers, subsystems, and commands (lines 17-24). It also assigns controller inputs to commands (lines 30-33).
+
+```java title="src\main\java\frc\robot\RobotContainer.java" showLineNumbers=16
+public class RobotContainer {
+    // Controllers (lines 17-24)
+    private final XboxController driverController = new XboxController(0);
+    private final XboxController operatorController = new XboxController(1);
+    
+    // Subsystems
+    private final DriveTrainSubsystem driveTrainSubsystem = new DriveTrainSubsystem();
+    private final IndexSubsystem indexSubsystem = new IndexSubsystem();
+    
+    // Commands
+    private final IntakeCommand intakeCommand = new IntakeCommand(indexSubsystem);
+    private final ShootCommand shootCommand = new ShootCommand(indexSubsystem);
+    
+    public RobotContainer() {
+        configureButtonBindings();
+    }
+    
+    private void configureButtonBindings() {
+        // Lines 30-33: Assign inputs to commands
+        new Trigger(() -> operatorController.getLeftTriggerAxis() > 0.1)
+            .whileTrue(intakeCommand);
+        new Trigger(() -> operatorController.getRightTriggerAxis() > 0.1)
+            .whileTrue(shootCommand);
+    }
+}
+```
+
+**Current Control Scheme:**
+- **Driver**: Left stick (translation), right stick (rotation), right trigger (slow mode)
+- **Operator**: Left trigger (intake), right trigger (shoot)
+
+### Constants
+
+Constants.java contains non-changing details about a robot's characteristics and how it should run. We have broken up our larger constants class into smaller classes broken up by subsystem/intent. Please see this file for examples.
+
+```java title="src\main\java\frc\robot\Constants.java"
+public final class Constants {
+    public static final class DeviceConstants {
+        public static final int DRIVER_CONTROLLER_PORT = 0;
+        public static final int OPERATOR_CONTROLLER_PORT = 1;
+        public static final int INTAKE_MOTOR_TWO = 2;
+        public static final int DRIVER_CONTROLLER = 0;
+        public static final int ELEVATOR_MOTOR = 3;
+        // CAN IDs and other device constants
+    }
+    
+    public static final class IntakeConstants {
+        public static final double INTAKE_SPEED = 0.5;
+        public static final double SHOOT_SPEED = 0.8;
+        public static final double CORAL_DETECTION_DISTANCE = 5.0; // inches
+    }
+    
+    public static final class DriveConstants {
+        public static final double WHEEL_BASE = 24.0; // inches
+        public static final double TRACK_WIDTH = 24.0; // inches
+        // Swerve drive kinematics and module constants
+    }
+    
+    public static final class DrivetrainConstants {
+        public static final double DEADBAND = 0.1;
+        public static final double POWER_SCALING = 0.7;
+        // Controller deadbands and power scaling
+    }
+}
+```
+
+---
+
+## Key Concepts Summary
+
+- **Subsystems** manage hardware directly and provide methods for controlling motors and sensors
+- **Commands** use subsystems to accomplish specific tasks and handle the timing of those tasks
+- **RobotContainer** connects user inputs to commands and manages the overall robot behavior
+- **Constants** store configuration values that can be easily modified without changing code logic
+
+## 📖Learning Exercise
+
+Now that you understand the basic structure, try this hands-on exercise:
+
+### Modify Intake Speed
+
+**File:** `Constants.java` (Lines 15-16)
+
+Change the `INTAKE_SPEED` constant in `IntakeConstants` and observe the difference:
+
+```java title="src\main\java\frc\robot\Constants.java" {2} showLineNumbers=17
+public static final class IntakeConstants {
+    public static final double INTAKE_SPEED = 0.5;  // Try changing to 0.3 or 0.7
+    public static final double SHOOT_SPEED = 0.8;
+    public static final double CORAL_DETECTION_DISTANCE = 5.0; // inches
+}
+```
+
+**What to try:**
+- Change `0.5` to `0.3` for slower intake
+- Change `0.5` to `0.7` for faster intake
+- Observe how this affects coral collection speed
+
+### Modify Shooter Speed
+
+**File:** `Constants.java` (Lines 15-16)
+
+Change the `SHOOT_SPEED` constant in `IntakeConstants` and observe the difference:
+
+```java title="src\main\java\frc\robot\Constants.java" {3} showLineNumbers=17
+public static final class IntakeConstants {
+    public static final double INTAKE_SPEED = 0.5;  
+    public static final double SHOOT_SPEED = 0.8; // Try changing to 0.3 or 0.7
+    public static final double CORAL_DETECTION_DISTANCE = 5.0; // inches
+}
+```
+
+**What to try:**
+- Change `0.5` to `0.3` for slower shoot
+- Change `0.5` to `0.7` for faster shoot
+- Observe how this affects coral collection speed
+
+Understanding this structure will help you build more complex robot behaviors as we progress through the series.

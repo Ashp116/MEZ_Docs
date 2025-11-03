@@ -17,3 +17,23 @@ hola:
   label: Hola
   permalink: /hola
   description: Hola tag description
+
+tutorial:
+  label: Tutorial
+  permalink: /tutorial
+  description: Educational tutorials and guides
+
+frc:
+  label: FRC
+  permalink: /frc
+  description: FIRST Robotics Competition related content
+
+java:
+  label: Java
+  permalink: /java
+  description: Java programming language content
+
+programming:
+  label: Programming
+  permalink: /programming
+  description: Programming and software development content
