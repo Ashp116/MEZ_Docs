@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkmez_docs=globalThis.webpackChunkmez_docs||[]).push([[472],{5513:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"MEZ Instructional Code Week 1","permalink":"/blog/mez-2025-code-week-1","unlisted":false,"date":"2025-11-06T00:00:00.000Z"}]}')}}]);

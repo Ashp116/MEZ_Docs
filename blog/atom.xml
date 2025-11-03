@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://mez-docs.ashp116.dev/blog</id>
     <title>MEZ Docs Blog</title>
-    <updated>2025-10-06T00:00:00.000Z</updated>
+    <updated>2025-11-06T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://mez-docs.ashp116.dev/blog"/>
     <subtitle>MEZ Docs Blog</subtitle>
@@ -11,7 +11,7 @@
         <title type="html"><![CDATA[MEZ Instructional Code Week 1]]></title>
         <id>https://mez-docs.ashp116.dev/blog/mez-2025-code-week-1</id>
         <link href="https://mez-docs.ashp116.dev/blog/mez-2025-code-week-1"/>
-        <updated>2025-10-06T00:00:00.000Z</updated>
+        <updated>2025-11-06T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[We have provided a prewritten, barebones repository with code for the typical MaxSwerve drive base and a simple flywheel with a distance sensor. This document will contain a quick overview of what the code is doing, then an exercise to see how changing the code affects the robot's real-world performance.]]></summary>
         <content type="html"><![CDATA[<p>We have provided a prewritten, barebones repository with code for the typical MaxSwerve drive base and a simple flywheel with a distance sensor. This document will contain a quick overview of what the code is doing, then an exercise to see how changing the code affects the robot's real-world performance.</p>
 <!-- -->
