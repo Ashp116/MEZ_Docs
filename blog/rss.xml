@@ -13,8 +13,8 @@
             <link>https://mez-docs.ashp116.dev/blog/mez-2025-code-week-1</link>
             <guid>https://mez-docs.ashp116.dev/blog/mez-2025-code-week-1</guid>
             <pubDate>Thu, 06 Nov 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[We have provided a prewritten, barebones repository with code for the typical MaxSwerve drive base and a simple flywheel with a distance sensor. This document will contain a quick overview of what the code is doing, then an exercise to see how changing the code affects the robot's real-world performance.]]></description>
-            <content:encoded><![CDATA[<p>We have provided a prewritten, barebones repository with code for the typical MaxSwerve drive base and a simple flywheel with a distance sensor. This document will contain a quick overview of what the code is doing, then an exercise to see how changing the code affects the robot's real-world performance.</p>
+            <description><![CDATA[This tutorial introduces FRC robot programming fundamentals using a complete MaxSwerve drivetrain and coral manipulation system. You'll learn how subsystems, commands, and constants work together, then practice modifying motor speeds to see real-world effects on robot performance.]]></description>
+            <content:encoded><![CDATA[<p>This tutorial introduces FRC robot programming fundamentals using a complete MaxSwerve drivetrain and coral manipulation system. You'll learn how subsystems, commands, and constants work together, then practice modifying motor speeds to see real-world effects on robot performance.</p>
 <!-- -->
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="project-structure">Project Structure<a href="https://mez-docs.ashp116.dev/blog/mez-2025-code-week-1#project-structure" class="hash-link" aria-label="Direct link to Project Structure" title="Direct link to Project Structure" translate="no">​</a></h2>
 <p>This is a WPILib-based FRC robot project using Java for the 2024/2025 season. The robot is designed for coral manipulation (intake and shooting) with a sophisticated swerve drive system.</p>
