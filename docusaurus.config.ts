@@ -87,7 +87,7 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/social-card.jpg',
+    image: 'img/social-card.png',
     // Configure table of contents to show more heading levels
     tableOfContents: {
       minHeadingLevel: 2,
