@@ -22,7 +22,7 @@ const config: Config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'Ashp116', // Usually your GitHub org/user name.
+  organizationName: 'Michigan-Engineering-Zone', // Usually your GitHub org/user name.
   projectName: 'MEZ_Docs', // Usually your repo name.
   deploymentBranch: 'gh-pages',
   trailingSlash: false,
@@ -46,7 +46,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/Ashp116/MEZ_Docs/edit/main/',
+            'https://github.com/Michigan-Engineering-Zone/MEZ_Docs/edit/main/',
           // Disable versioning for now - use current docs as 2025
           includeCurrentVersion: true,
           onlyIncludeVersions: ['current'],
@@ -60,7 +60,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/Ashp116/MEZ_Docs/edit/main/',
+            'https://github.com/Michigan-Engineering-Zone/MEZ_Docs/edit/main/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
@@ -111,7 +111,7 @@ const config: Config = {
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/Ashp116/MEZ_Docs',
+          href: 'https://github.com/Michigan-Engineering-Zone/MEZ_Docs',
           label: 'GitHub',
           position: 'right',
         },
