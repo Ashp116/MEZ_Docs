@@ -13,7 +13,7 @@ This tutorial introduces FRC robot programming fundamentals using a complete Max
 
 ## Project Structure
 
-This is a WPILib-based FRC robot project using Java for the 2024/2025 season. The robot is designed for coral manipulation (intake and shooting) with a sophisticated swerve drive system.
+This is a WPILib-based FRC robot project using Java for the 2024/2025 season. The robot is designed for coral manipulation (intake and shooting) with a swerve drivetrain.
 
 ```
 src/main/java/frc/robot/
@@ -64,26 +64,31 @@ public class IndexSubsystem extends SubsystemBase {
     }
     
     public boolean hasGamePiece() {
-        return !coralSensor.get();
+        if (coralSensor.get()) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
 ```
 
 ### DriveTrainSubsystem
 
-DriveSubsystem is responsible for the eight drivetrain motors, four drive and four turn. We will not go into details on this subsystem, but understand that it provides the interface and mathematics behind the swerve drive.
+DriveSubsystem is responsible for the eight drivetrain motors: four drive and four turn. We will not go into details on this subsystem, but understand that it powers the swerve drive.
 
 The subsystem includes:
 - 4-module swerve drive using REV MAXSwerve modules
 - NavX gyroscope integration for field-relative driving
-- Odometry and pose estimation for autonomous navigation
-- Advanced features like wheel locking (X-formation) and speed limiting
+- Logic for autonomous navigation
+- Advanced features like speed limiting
 
 ---
 
 ## Commands
 
-Commands allow users or predefined scripts to call their subsystems' methods. They often reserve a subsystem, meaning only they can use it, then use a user's inputs or a predefined, timed script to call upon the subsystem, eventually affecting the robot.
+Commands allow users or predefined scripts to call their subsystems' methods. They often "require" a subsystem, meaning only they can use it for a period of time, then use a user's inputs or a predefined script to call upon the subsystem to affect the robot.
 
 Commands run within an execution loop. When a command is first scheduled, its `initialize` method executes once. During each cycle of the loop, the `execute` method runs repeatedly. The command continues running until it is either interrupted externally (for example, when a button is released) or its `isFinished` method returns true, at which point the `end` method is called and the loop stops executing the command.
 
@@ -96,7 +101,7 @@ Commands run within an execution loop. When a command is first scheduled, its `i
 
 ### IntakeCommand
 
-IntakeCommand requires IndexSubsystem, meaning that while it is running, no other command may operate on IndexSubsystem (lines 15-18). While it is running, it tells IndexSubsystem to run the index motors at intake speed (lines 23-26). IntakeCommand ends either when it stops being scheduled, because the user input stops, or because there is a game piece present in the intake as defined in the isFinished logic (lines 33-36). When IntakeCommand finishes, it calls IndexSubsystem to stop the motors' movement (lines 28-31).
+IntakeCommand requires IndexSubsystem, meaning that while it is running, no other command may operate on IndexSubsystem (lines 15-18). While it is running, it tells IndexSubsystem to run the index motors at intake speed (lines 23-26). IntakeCommand ends either when it stops being used because the user input stops, or because there is a game piece present in the intake as defined in the isFinished logic (lines 33-36). When IntakeCommand finishes, it calls IndexSubsystem to stop the motors' movement (lines 28-31).
 
 ```java title="src\main\java\frc\robot\Commands\IntakeCommand.java"
 public class IntakeCommand extends CommandBase {
@@ -158,11 +163,10 @@ public class ShootCommand extends CommandBase {
 
 ### DriveTrainCommand
 
-DriveTrainCommand contains the execute loop for driving and several additional methods for input smoothing. We will not be going into detail on this.
+DriveTrainCommand contains the execute loop for driving. We will not go into detail on this in this lesson.
 
 The command handles:
-- Field-relative driving with alliance color compensation
-- Advanced deadband system with static friction compensation
+- Field-relative driving
 - Power scaling (slow mode) via right trigger
 - Separate handling for linear and rotational movements
 
@@ -174,7 +178,7 @@ Files like Robot, RobotContainer, Constants, and other Util files may be present
 
 ### Main
 
-Main.java is used simply as a build target for Java. It does nothing but call the RobotBase static class and start an instance of Robot. Do not worry about the details of this file.
+Main.java is simply what starts a Java program. It does nothing but call the RobotBase static class and start an instance of Robot. Do not worry about the details of this file.
 
 ```java title="src\main\java\frc\robot\Main.java" showLineNumbers=9
 public final class Main {
@@ -300,15 +304,15 @@ Change the `INTAKE_SPEED` constant in `IntakeConstants` and observe the differen
 
 ```java title="src\main\java\frc\robot\Constants.java" {2} showLineNumbers=17
 public static final class IntakeConstants {
-    public static final double INTAKE_SPEED = 0.5;  // Try changing to 0.3 or 0.7
-    public static final double SHOOT_SPEED = 0.8;
+    public static final double INTAKE_SPEED = 0.1;  // Try changing to 0.3 or 0.7
+    public static final double SHOOT_SPEED = 0.2;
     public static final double CORAL_DETECTION_DISTANCE = 5.0; // inches
 }
 ```
 
 **What to try:**
-- Change `0.5` to `0.3` for slower intake
-- Change `0.5` to `0.7` for faster intake
+- Change `0.1` to `0.3` for a slightly faster intake
+- Change `0.5` to `0.7` for a significantly faster intake
 - Observe how this affects coral collection speed
 
 ### Modify Shooter Speed
@@ -320,13 +324,12 @@ Change the `SHOOT_SPEED` constant in `IntakeConstants` and observe the differenc
 ```java title="src\main\java\frc\robot\Constants.java" {3} showLineNumbers=17
 public static final class IntakeConstants {
     public static final double INTAKE_SPEED = 0.5;  
-    public static final double SHOOT_SPEED = 0.8; // Try changing to 0.3 or 0.7
+    public static final double SHOOT_SPEED = 0.2; // Try changing to 0.3 or 0.7
     public static final double CORAL_DETECTION_DISTANCE = 5.0; // inches
 }
 ```
 
 **What to try:**
-- Change `0.5` to `0.3` for slower shoot
 - Change `0.5` to `0.7` for faster shoot
 - Observe how this affects coral collection speed
 
